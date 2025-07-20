@@ -80,14 +80,15 @@ public class Principal {
                 definido dentro del método run() (que extiende Thread o implementa Runnable) 
                 comenzará a ejecutarse en este nuevo hilo.
         */
-        System.out.println("Inicio del programa - Proveedor iniciado");
+        System.out.println("[PRINCIPAL] Inicio del programa - Proveedor iniciado");
 
         // Crear y lanzar hilos de los fumadores
         Thread[] fumador = new Thread[fumadores];
         for (int i = 0; i < fumadores; i++) {
             fumador[i] = new Thread(new Fumador(i));
+            System.out.println("[PRINCIPAL] Fumador " + (i+1) + " iniciado - Tiene: " + ingrediente[i]);
             fumador[i].start();
-            System.out.println(" Fumador " + (i+1) + " iniciado - Tiene: " + ingrediente[i]);
+            
         }
 
         // Esperar a que el proveedor termine
@@ -99,19 +100,19 @@ public class Principal {
         el hilo que llama (el hilo principal en este caso) se pausa y espera hasta que 
         hilo complete su método run() y muera.
         */    
-        System.out.println("Proveedor terminó su trabajo");
+        System.out.println("[PRINCIPAL]Run() Proveedor terminó - FIN ESPERA DESDE PRINCIPAL, Pausa Terminada");
 
         // Esperar a que todos los fumadores terminen
         for (int i = 0; i < fumadores; i++) {
             fumador[i].join();
-            System.out.println("Fumador " + (i+1) + " terminó");
+            System.out.println("[PRICIPAL]Run() Fumador " + (i+1) + " FIN DE ESPERA JOIN  DESDE PRINCIPAL");
         }
 
         // Mostrar resumen final
         System.out.println("\n[RESUMEN FINAL]");
-        System.out.println("• Fumador con TABACO fumó: " + cont_ftabaco + " cigarrillos");
-        System.out.println("• Fumador con PAPEL fumó: " + cont_fpapel + " cigarrillos");
-        System.out.println("• Fumador con CERILLAS fumó: " + cont_fcerillas + " cigarrillos");
+        System.out.println("-> Fumador con TABACO fumó: " + cont_ftabaco + " cigarrillos");
+        System.out.println("-> Fumador con PAPEL fumó: " + cont_fpapel + " cigarrillos");
+        System.out.println("-> Fumador con CERILLAS fumó: " + cont_fcerillas + " cigarrillos");
         System.out.println("¡PROGRAMA COMPLETADO!");
     }
 }
